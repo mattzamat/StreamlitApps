@@ -2,6 +2,7 @@ from calendar import month
 from decimal import ROUND_UP
 from re import sub
 import streamlit as st
+from deta import Deta
 from gsheetsdb import connect
 from gspread_pandas import Spread,Client
 from google.oauth2 import service_account
@@ -9,10 +10,10 @@ from gsheetsdb import connect
 from pandas import DataFrame
 import pandas as pd
 import datetime as dt
+import gspread
 
 st.set_page_config(layout="wide")
 
-import gspread
 
 credentials = {
   "type": "service_account",
@@ -154,4 +155,3 @@ def app():
     
             new_df = df.append(opt_df, ignore_index=True)
             update_the_spreadsheet('Intake Sheet', new_df)
-app()
