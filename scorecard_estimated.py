@@ -75,3 +75,4 @@ def app():
             st.metric(label="Total Man Hours Actual", value=actualmanhours, delta=totalmanhours_difference, delta_color="inverse")
             st.metric(label="Total Cost Actual", value=actualcost, delta=actualcost_difference, delta_color="inverse")
             st.metric(label="Total Cost to Client Actual", value=estimatedcosttoclient, delta=costtoclient_difference, delta_color="inverse")
+app()
