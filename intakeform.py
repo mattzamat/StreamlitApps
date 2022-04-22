@@ -154,3 +154,5 @@ def app():
     
             new_df = df.append(opt_df, ignore_index=True)
             update_the_spreadsheet('Intake Sheet', new_df)
+        
+app()
