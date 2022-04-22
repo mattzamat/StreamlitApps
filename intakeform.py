@@ -13,20 +13,36 @@ import datetime as dt
 
 st.set_page_config(layout="wide")
 
+import gspread
+
+credentials = {
+  "type": "service_account",
+  "project_id": "themarginator",
+  "private_key_id": "7954daaac827ed086e026dbeef2145e47c7234e2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCvC/cgqekuksyK\nzOOS8cJoQ2TkyawkramcDZuAoeqE6fwJnvWbyzdCsImOgxrc2MmZ2njzQtsR2Spe\nU8s2iqxdKk48EOrS15JKvYS/zm/P8JxfPMFjm9ymsiCN5R8jp/r/Ym7iq4nUnfxX\nxES65BX702/ORdmULO0vUHV0cILbqtGbmhOSSq9SR7Am+taznFGN/KDGUsSdIH25\nZ6eOZPct+9PFaXzOum08BwDFWr/YMFcFMYZq0djXuCpooOF7Vnu97SBkuq7A/AMi\n1LEjrLADAaopBmtoIjx5uTbryhuxOriUBO/p6Jsy1++QgYKaYDZckNd6wBGPBYtb\nuxhDFCibAgMBAAECggEAMaaGMTigkHpJFDGrdzmlt+ctzgs6DalIi5/8dI74szyf\nJad16PvKL9tdGRQs4WmIPWCPoAhdlQFxGBJSeKT64O4oBLeTs7w7nYGGDtWiN2v7\nHrRf8j36ZzntK/JKU9XIxvmHlDmtvaYWNlrQV+ZsKeK+OtbrMTFREXOT7TQgmeew\nI/tXuZXf0hKxhcU0mqNrAvTzqTwAGRZXkUTkaWSejy6EaAjLF+hwdEObq5ODtcMB\n5/wMx1I53OnNQIBmvxFaxPL8YFUSV3bCT2bmpSDK+hCf/QaVaEABTClHdyYy0JF4\nfgOj6gP8lrL+VLrZruGZkGHfiAerFjZvTghzqkd1mQKBgQDpfm71P9b03yJDXZlz\nbXR9X3eSDy8P+Xi4sm3SJb9LoNI/bopDCJiPYXE4ydK4AOWB68iGVkjIxbZc7Dnn\njrYguO5b1yNTmvLFvRtF+NcRXyguLkkz9X0fr8iiNmgA5xVaMIjXR0kBiW9bhWep\n5jzNeWIEV/xNMFyUMwI+XfleHwKBgQC/61KJaTHIzO4KjCtiXgV8wSj8ZYiiC+Ls\nYMYqwtnBQherFRicMJfUO0nN41UHz0RybQusbS7bOhK9TNcIQQt5Ij/ZCnO4PLPm\ngp06QBBvyoMKENIkuIQtU4KNErtNv2n6WFsBDJxlnAc9hTKE/Wm8LaBGuNg+akoy\nMQCM2LxuBQKBgDv6uYAQhSRkCUYqzhdjn4/xLSL8+Ybt+7/ePe3Euo4v4rJer++m\nTqJOUqpW1eVkfZBRRDKWCZ5hg4X9PKap90kSmFBJRI7ed8yp1k60LHMO8aBjTXSm\ndBzmp/Bbb34D3m1LmGtMqYlWh5+H9mgjd60EqFQbUfl2GeIL9GCW/U7bAoGAfy/M\nuxPj0lc9SfAqsD3vFQZNyzbencWS1WQs8BnBhbnvRYntjVUGybeg6blGmK5bhhmO\nKu8QpmiOErXhq66vk8+G0KeEmQxhjNnyqK/cNLnYrcsH+R3vOrqlQiivyI6aBTaY\n2NEqtIv6oGKtYEUw1WzHUxcc+AAou6qN2smn1qECgYBP9v9ZfFnmb57wnkZN0Vkt\nhB2HVDVg208rNeCnPcUbysPnunVVE5Pc/s1YW/sud+UI6oCqKonxRsCy2bnjttgD\n6rmEH1Muy9xSzwyEh4Ldig7gbIx2VGaADIWTOVO1OaRLSsIWOcCnvoFresMGgKfS\nWF4LxHeffdM3Tj7ktcMqfA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "matthsq@themarginator.iam.gserviceaccount.com",
+  "client_id": "106943139207166064486",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/matthsq%40themarginator.iam.gserviceaccount.com"
+}
+
+
+gc = gspread.service_account_from_dict(credentials)
+
+sh = gc.open("TheMarginator Streamlit")
+
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 credentials = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes = scope)
 client = Client(scope=scope,creds=credentials)
 spreadsheetname = "TheMarginator Streamlit"
 spread = Spread(spreadsheetname,client = client)
-sh = client.open(spreadsheetname)
-worksheet_list = sh.worksheets()
+
+
 
 @st.cache()
-def worksheet_names():
-    sheet_names = []   
-    for sheet in worksheet_list:
-        sheet_names.append(sheet.title)  
-    return sheet_names
+
 def load_the_spreadsheet(spreadsheetname):
     worksheet = sh.worksheet(spreadsheetname)
     df = DataFrame(worksheet.get_all_records())
@@ -38,7 +54,6 @@ def update_the_spreadsheet(spreadsheetname,dataframe):
     spread.df_to_sheet(dataframe[col_list],sheet = spreadsheetname,index = False)
     st.sidebar.info('Updated to GoogleSheet')
 
-#df = load_the_spreadsheet('Intake Sheet')
 
 def app():
     col1, col2, col3 = st.columns(3)
@@ -140,3 +155,4 @@ def app():
     
             new_df = df.append(opt_df, ignore_index=True)
             update_the_spreadsheet('Intake Sheet', new_df)
+app()
