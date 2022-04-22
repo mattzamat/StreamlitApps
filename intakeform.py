@@ -2,7 +2,6 @@ from calendar import month
 from decimal import ROUND_UP
 from re import sub
 import streamlit as st
-from deta import Deta
 from gsheetsdb import connect
 from gspread_pandas import Spread,Client
 from google.oauth2 import service_account
