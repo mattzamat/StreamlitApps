@@ -75,38 +75,39 @@ with st.container():
             st.metric(label='Mechanical Eng', value=millify(mechanical_eng_metric, precision=2))
 with st.container():
     col1, col2, col3, col4 = st.columns(4)
-    with col1:   
-        ac_wiring = st.number_input(label="AC Wiring", step=0.1)
-        ac_wiring_metric = (ac_wiring/costforproject_watt)*100
-        st.metric(label='AC Wiring', value=millify(ac_wiring_metric, precision=2))
+    if next_step:
+        with col1:   
+            ac_wiring = st.number_input(label="AC Wiring", step=0.1)
+            ac_wiring_metric = (ac_wiring/costforproject_watt)*100
+            st.metric(label='AC Wiring', value=millify(ac_wiring_metric, precision=2))
 
-        sales_comission = st.number_input(label="Sales-Commissions", step=0.1)
-        sales_comission_metric = (sales_comission/costforproject_watt)*100
-        st.metric(label='Sales Commission', value=millify(sales_comission_metric, precision=2))
+            sales_comission = st.number_input(label="Sales-Commissions", step=0.1)
+            sales_comission_metric = (sales_comission/costforproject_watt)*100
+            st.metric(label='Sales Commission', value=millify(sales_comission_metric, precision=2))
 
-    with col2: 
-        racking = st.number_input(label="Racking", step=0.1)
-        racking_metric = (racking/costforproject_watt)*100
-        st.metric(label='Racking', value=millify(racking_metric, precision=2))
-    
-        misc = st.number_input(label="Misc", step=0.1)
-        misc_metric = (misc/costforproject_watt)*100
-        st.metric(label='Misc', value=millify(misc_metric, precision=2))
-
-    with col3:  
-        concrete_roofing = st.number_input(label="Concrete and Roofing", step=0.1)
-        concreate_roofing_mertric = (concrete_roofing/costforproject_watt)*100
-        st.metric(label='Concrete Roofing', value=millify(concreate_roofing_mertric, precision=2))
+        with col2: 
+            racking = st.number_input(label="Racking", step=0.1)
+            racking_metric = (racking/costforproject_watt)*100
+            st.metric(label='Racking', value=millify(racking_metric, precision=2))
         
-        spare1 = st.number_input(label="Spare 1", step=0.1)
-        spare_metric1 = (spare1/costforproject_watt)*100
-        st.metric(label='Spare 1', value=millify(spare_metric1, precision=2))
-    
-    with col4:   
-        mainpanel = st.number_input(label="Main Panel Upgrade", step=0.1)
-        mainpanel_metric = (mainpanel/costforproject_watt)*100
-        st.metric(label='Main Panel', value=millify(mainpanel_metric, precision=2))
+            misc = st.number_input(label="Misc", step=0.1)
+            misc_metric = (misc/costforproject_watt)*100
+            st.metric(label='Misc', value=millify(misc_metric, precision=2))
 
-        spare2 = st.number_input(label="Spare 2", step=0.1)
-        spare_metric2 = (spare2/costforproject_watt)*100
-        st.metric(label='Spare 2', value=millify(spare_metric2, precision=2))
+        with col3:  
+            concrete_roofing = st.number_input(label="Concrete and Roofing", step=0.1)
+            concreate_roofing_mertric = (concrete_roofing/costforproject_watt)*100
+            st.metric(label='Concrete Roofing', value=millify(concreate_roofing_mertric, precision=2))
+            
+            spare1 = st.number_input(label="Spare 1", step=0.1)
+            spare_metric1 = (spare1/costforproject_watt)*100
+            st.metric(label='Spare 1', value=millify(spare_metric1, precision=2))
+        
+        with col4:   
+            mainpanel = st.number_input(label="Main Panel Upgrade", step=0.1)
+            mainpanel_metric = (mainpanel/costforproject_watt)*100
+            st.metric(label='Main Panel', value=millify(mainpanel_metric, precision=2))
+
+            spare2 = st.number_input(label="Spare 2", step=0.1)
+            spare_metric2 = (spare2/costforproject_watt)*100
+            st.metric(label='Spare 2', value=millify(spare_metric2, precision=2))
