@@ -100,12 +100,4 @@ with st.container():
             spare1 = st.number_input(label="Spare 1", step=0.1)
             spare_metric1 = (spare1/costforproject_watt)*100
             st.metric(label='Spare 1', value=millify(spare_metric1, precision=2))
-        
-        with col8:   
-            mainpanel = st.number_input(label="Main Panel Upgrade", step=0.1)
-            mainpanel_metric = (mainpanel/costforproject_watt)*100
-            st.metric(label='Main Panel', value=millify(mainpanel_metric, precision=2))
-
-            spare2 = st.number_input(label="Spare 2", step=0.1)
-            spare_metric2 = (spare2/costforproject_watt)*100
-            st.metric(label='Spare 2', value=millify(spare_metric2, precision=2))
+       
