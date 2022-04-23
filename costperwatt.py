@@ -10,14 +10,14 @@ with st.container():
     st.header('Enter Project Info')
 
 with st.container():
-    col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
-    with col3:
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    with col2:
         system_size = st.number_input(label="System Size", step=0.1)
-    with col4:
+    with col3:
         totalprojectcost = st.number_input(label="Total Project Cost", step=0.1)
-    with col5:
+    with col4:
         dealer_fee = st.number_input(label="Dealer Fee Percent", step=0.1)
-    with col6:
+    with col5:
         tax_percent = st.number_input(label="Project Tax Percent", step=0.1)
     with col1:
         next_step = False
